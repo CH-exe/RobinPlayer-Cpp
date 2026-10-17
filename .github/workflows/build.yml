@@ -14,13 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: cpp98 / c++98
+          - name: cpp98-cxx98
             source: main_cpp98.cpp
             std: c++98
-          - name: cpp98 / c++17
+          - name: cpp98-cxx17
             source: main_cpp98.cpp
             std: c++17
-          - name: modern / c++17
+          - name: modern-cxx17
             source: main.cpp
             std: c++17
     steps:
