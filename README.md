@@ -48,6 +48,9 @@ constexpr std::string_view kMusicPath = "music.mid";   //error: 'string_view' is
 只依赖 C++ 标准库和 `windows.h`，`winmm.dll` 是运行时用 `LoadLibrary` 动态加载的，
 **不需要** `-lwinmm`。源文件请以 UTF-8 保存（仓库里的文件带 BOM，MSVC 也能正确识别）。
 
+每次 push 都会由 GitHub Actions 用 MinGW-w64 和 MSVC 自动构建两条产物，可在
+[Actions](https://github.com/CH-exe/RobinPlayer-Cpp/actions) 运行页的 Artifacts 中下载。
+
 MinGW-w64 / Dev-C++：
 
 ```bat
