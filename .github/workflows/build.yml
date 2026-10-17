@@ -1,0 +1,65 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  mingw:
+    name: MinGW-w64 (${{ matrix.name }})
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: cpp98 / c++98
+            source: main_cpp98.cpp
+            std: c++98
+          - name: cpp98 / c++17
+            source: main_cpp98.cpp
+            std: c++17
+          - name: modern / c++17
+            source: main.cpp
+            std: c++17
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: false
+          install: mingw-w64-x86_64-gcc
+
+      - name: Compile
+        shell: msys2 {0}
+        run: |
+          g++ -std=${{ matrix.std }} -O2 -Wall -Wextra -pedantic \
+              -o RobinPlayer.exe ${{ matrix.source }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RobinPlayer-${{ matrix.name }}
+          path: RobinPlayer.exe
+
+  msvc:
+    name: MSVC (default standard + /std:c++17)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compile portable version with the default standard
+        run: cl /nologo /EHsc /O2 /W4 main_cpp98.cpp
+
+      - name: Compile modern version with /std:c++17
+        run: cl /nologo /EHsc /O2 /W4 /std:c++17 /utf-8 /Fe:RobinPlayer-modern.exe main.cpp
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RobinPlayer-msvc
+          path: |
+            main_cpp98.exe
+            RobinPlayer-modern.exe

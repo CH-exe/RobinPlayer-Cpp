@@ -1,0 +1,9 @@
+* text=auto
+*.cpp text
+*.h text
+*.md text
+*.yml text
+*.txt text
+LICENSE text
+*.bmp binary
+*.mid binary

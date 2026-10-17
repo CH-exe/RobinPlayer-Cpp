@@ -1,0 +1,26 @@
+# 编译产物
+*.exe
+*.obj
+*.o
+*.pdb
+*.ilk
+*.exp
+*.lib
+build/
+out/
+cmake-build-*/
+
+# 程序运行时自动解出的资源（由内嵌的 Base64 生成，不应提交）
+music.mid
+lyric.lrc
+pic1.bmp
+pic2.bmp
+
+# 编辑器 / IDE
+.vscode/
+*.dev
+*.layout
+*.cbp
+*.sln
+*.vcxproj
+*.vcxproj.*
